@@ -11,4 +11,8 @@
     <Folder Include="Components\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="IronXL.Excel" Version="2023.1.14" />
+  </ItemGroup>
+
 </Project>
