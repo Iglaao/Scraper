@@ -1,0 +1,22 @@
+﻿<UserControl x:Class="Scraper.Components.ResultPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Scraper.Components"
+             mc:Ignorable="d" 
+             Height="340" Width="400">
+    <GroupBox
+        Header="Result panel"
+        BorderThickness="1"
+        BorderBrush="Black">
+        <Grid Margin="5">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="100"/>
+            </Grid.RowDefinitions>
+            <ListBox Grid.Row="0" Name="ListboxPanel"/>
+            <ListBox Grid.Row="1" Name="ListboxLogPanel"/>
+        </Grid>
+    </GroupBox>
+</UserControl>

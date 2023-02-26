@@ -1,0 +1,95 @@
+﻿<UserControl x:Class="Scraper.Components.SaveOptions"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Scraper.Components"
+             mc:Ignorable="d" 
+             Height="220" Width="400">
+    <GroupBox 
+        Header="Save options"
+        BorderThickness="1" 
+        BorderBrush="Black"
+    >
+        <Grid Margin="5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="6*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+
+            <RadioButton
+                Grid.Row="0" 
+                GroupName="creationOption"
+                VerticalAlignment="Center"
+                Name="rbNewFile"
+                Checked="RadioButtonChecked"
+            >
+                Create new file
+            </RadioButton>
+            <StackPanel Grid.Row="1">
+                <TextBlock>Chose file format</TextBlock>
+                <ComboBox 
+                    Name="comboBoxExtension"
+                    SelectionChanged="ComboBoxSelectionChanged"
+                />
+                <TextBlock>Enter path to folder or use select button</TextBlock>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox 
+                        Grid.Column="0"
+                        Name="pathToFolder"
+                        SelectionChanged="FolderPathChange"
+                    />
+                    <Button 
+                        Grid.Column="1"
+                        Name="selectFolder"
+                        Click="SelectFolder_Click"
+                    >
+                        Select folder
+                    </Button>
+                </Grid>
+                <TextBlock>Enter filename</TextBlock>
+                <TextBox
+                    Name="fileName"
+                    SelectionChanged="FileNameChange"/>
+            </StackPanel>
+
+            <RadioButton
+                Grid.Row="2"
+                GroupName="creationOption"
+                VerticalAlignment="Center"
+                Name="rbExistingFile"
+                Checked="RadioButtonChecked"
+            >
+                Save to existing file
+            </RadioButton>
+            <StackPanel Grid.Row="3" >
+                <TextBlock>
+                    Enter path to file or use select button</TextBlock>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox 
+                        Grid.Column="0"
+                        Name="pathToFile"
+                        SelectionChanged="FilePathChange"
+                    />
+                    <Button 
+                        Grid.Column="1"
+                        Name="selectFile"
+                        Click="SelectFile_Click"
+                    >
+                        Select file
+                    </Button>
+                </Grid>
+            </StackPanel>
+        </Grid>
+    </GroupBox>
+</UserControl>

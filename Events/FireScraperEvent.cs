@@ -8,13 +8,18 @@ namespace Scraper.Events
 {
     public class FireScraperEvent : EventArgs
     {
-        //True = run
-        //False = cancel
-        private bool _run;
-        public bool Run { get { return _run; } }
-        public FireScraperEvent(bool run) : base()
+        public enum Options
         {
-            _run = run;
+            Run,
+            Cancel,
+            StopAndSave,
+            SaveResults
+        }
+        private Options _option;
+        public Options Option { get { return _option; } }
+        public FireScraperEvent(Options option) : base()
+        {
+            _option = option;
         }
     }
 }

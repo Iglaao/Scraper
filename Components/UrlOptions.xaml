@@ -1,0 +1,41 @@
+﻿<UserControl x:Class="Scraper.Components.UrlOptions"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Scraper.Components"
+             mc:Ignorable="d" 
+             Height="180" Width="400">
+    <GroupBox
+        Header="URL options"
+        BorderThickness="1"
+        BorderBrush="Black">
+        <Grid Margin="5">
+            <StackPanel Name="UrlPanel">
+                <TextBlock>Explicit part of URL (Use # to fill with last number)</TextBlock>
+                <TextBox Name="UrlAddress" SelectionChanged="UrlAddress_SelectionChanged"/>
+                <TextBlock>Implicit part of URL (Enter pattern - Example: AA0)</TextBlock>
+                <TextBox Name="Pattern" SelectionChanged="Pattern_SelectionChanged"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="140"/>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" HorizontalAlignment="Center">
+                        <TextBlock>a - only lowercase letters</TextBlock>
+                        <TextBlock>A - only uppercase letters</TextBlock>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" HorizontalAlignment="Center">
+                        <TextBlock>0 - only numbers</TextBlock>
+                        <TextBlock>C - only letters</TextBlock>
+                    </StackPanel>
+                    <StackPanel Grid.Column="2" HorizontalAlignment="Center">
+                        <TextBlock>E - everything combined</TextBlock>
+                    </StackPanel>
+                </Grid>
+                <TextBlock Margin="0, 10, 0, 0">How many urls to find?</TextBlock>
+            </StackPanel>
+        </Grid>
+    </GroupBox>
+</UserControl>

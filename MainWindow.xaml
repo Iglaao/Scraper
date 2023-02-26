@@ -4,9 +4,23 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Scraper"
+        xmlns:uc="clr-namespace:Scraper.Components"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="WebScraper" 
+        Height="510" Width="840">
     <Grid>
-
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="410"/>
+            <ColumnDefinition Width="410"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0">
+            <uc:UrlOptions x:Name="UrlOptions"/>
+            <uc:ThreadingOptions x:Name="ThreadingOptions"/>
+            <uc:SaveOptions x:Name="SaveOptions"/>
+        </StackPanel>
+        <StackPanel Grid.Column="1">
+            <uc:MenuPanel x:Name="MenuPanel" Grid.Column="1" Grid.Row="0"/>
+            <uc:ResultPanel x:Name="ResultPanel" Grid.Column="1" Grid.Row="1" Grid.RowSpan="2"/>
+        </StackPanel>
     </Grid>
 </Window>
