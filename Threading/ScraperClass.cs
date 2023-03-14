@@ -1,9 +1,7 @@
 ﻿using Scraper.Data;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -11,12 +9,13 @@ namespace Scraper.Threading
 {
     public static class ScraperClass
     {
+        private static readonly object linkLock = new object();
         private static Task<string> GetHtml(HttpClient client, string fullUrl)
         {
             var response = client.GetStringAsync(fullUrl);
             return response;
         }
-        public static async void RunThread(int i, int j, string fullUrl, List<String> list, List<Link> data, Components.ResultPanel resultPanel)
+        public static async void RunThread(int i, int j, string fullUrl, List<String> list, List<Link> data, Components.ResultPanel resultPanel, CancellationToken cts)
         {
             var client = new HttpClient();
             string code = "";
@@ -30,17 +29,30 @@ namespace Scraper.Threading
                     break;
                 }
                 catch (HttpRequestException ex) { }
-
+                if (cts.IsCancellationRequested)
+                {
+                    resultPanel.AddItemToLogBox("Thread [" + i + "." + j + "] cancelling work.");
+                    return;
+                }
             }
-            if(code == "")
+            if (code == "")
             {
                 resultPanel.AddItemToLogBox("Thread [" + i + "." + j + "] hasn't found anything.");
+                lock (linkLock)
+                {
+                    if (data[i - 1].Counter > 0) data[i - 1].Counter -= 1;
+                    else return;
+                }
             }
             else
             {
                 resultPanel.AddItemToListBox(fullUrl + code + ".webp");
-                data[i - 1].Url = fullUrl + code + ".webp";
-                data[i - 1].IsFound = true;
+                lock (linkLock)
+                {
+                    data[i - 1].Url = fullUrl + code + ".webp";
+                    data[i - 1].Counter = 0;
+                    data[i - 1].IsFound = true;
+                }
             }
         }
     }

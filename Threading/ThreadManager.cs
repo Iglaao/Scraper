@@ -1,16 +1,13 @@
 ﻿using Scraper.Data;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace Scraper.Threading
 {
     public static class ThreadManager
     {
-        public static void StartScraping(List<Link> links, List<IEnumerable<string>> partitionsData, Components.ResultPanel resultPanel)
+        public static void StartScraping(List<Link> links, List<IEnumerable<string>> partitionsData, Components.ResultPanel resultPanel, CancellationToken cts)
         {
             var partitions = partitionsData.Select((data, index) => (data, index));
             foreach(var link in links)
@@ -18,10 +15,12 @@ namespace Scraper.Threading
                 foreach(var partition in partitions)
                 {
                     ThreadPool.QueueUserWorkItem((state) => { 
-                        ScraperClass.RunThread(link.Id, partition.index, link.Url, partition.data.ToList(), links, resultPanel); 
+                        ScraperClass.RunThread(link.Id, partition.index, link.Url, partition.data.ToList(), links, resultPanel, cts); 
                     });
                 }
-                while (!link.IsFound) { }
+                while (!(link.IsFound || link.Counter == 0)) {
+                    if (cts.IsCancellationRequested) return;
+                }
             }
         }
     }

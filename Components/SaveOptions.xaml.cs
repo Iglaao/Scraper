@@ -1,18 +1,8 @@
 ﻿using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Scraper.Components
 {
@@ -26,16 +16,15 @@ namespace Scraper.Components
         private string _selectedFolder;
         private string _selectedFile;
         private string _fileName;
+        public bool _isNewFileSelected;
         public SaveOptions()
         {
             InitializeComponent();
             LoadExtensions();
             LoadFileDialog();
             rbNewFile.IsChecked = true;
+            _isNewFileSelected = true;
             _selectedExtension = comboBoxExtension.SelectedItem.ToString();
-            //TODO REMOVE
-            pathToFolder.Text = @"C:\Users\Igor\Desktop";
-            fileName.Text = "asd";
         }
 
         private void RadioButtonChecked(object sender, RoutedEventArgs e)
@@ -48,6 +37,7 @@ namespace Scraper.Components
                 fileName.IsEnabled = true;
                 pathToFile.IsEnabled = false;
                 selectFile.IsEnabled = false;
+                _isNewFileSelected = true;
             }
             else if (rbExistingFile.IsChecked == true)
             {
@@ -57,6 +47,7 @@ namespace Scraper.Components
                 fileName.IsEnabled = false;
                 pathToFile.IsEnabled = true;
                 selectFile.IsEnabled = true;
+                _isNewFileSelected = false;
             }
         }
         private void LoadExtensions()
@@ -83,7 +74,6 @@ namespace Scraper.Components
         {
             _selectedExtension = comboBoxExtension.SelectedItem.ToString();
         }
-
         private void SelectFolder_Click(object sender, RoutedEventArgs e)
         {
             using (System.Windows.Forms.FolderBrowserDialog fbd = new())

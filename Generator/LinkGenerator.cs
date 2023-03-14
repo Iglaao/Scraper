@@ -1,9 +1,6 @@
 ﻿using Scraper.Data;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Scraper.Generator
 {
@@ -16,12 +13,12 @@ namespace Scraper.Generator
             int linkId = Convert.ToInt32(decomposedLink[decomposedLink.Length - 1]);
             var baseUrl = url.Remove(url.Length - decomposedLink[decomposedLink.Length - 1].Length);
 
-            for(int i = 0; i < amount; ++i)
+            for (int i = 0; i < amount; ++i)
             {
-                links.Add(new Link() 
-                { 
-                    Id = i + 1, 
-                    Url = baseUrl.Replace("#", ((linkId + i) % 10).ToString()) + (linkId + i).ToString() 
+                links.Add(new Link()
+                {
+                    Id = i + 1,
+                    Url = baseUrl.Replace("#", ((linkId + i) % 10).ToString()) + (linkId + i).ToString()
                 });
             }
 
